@@ -67,6 +67,16 @@ class model {
             }
         });
     }
+    getRulette(request, response) {
+        this.dbCon.query('SELECT * FROM roulette', (error, result) => {
+            if (!error) {
+                response.status(201).json(result);
+            }
+            else {
+                response.status(500).json({ status: error.stack });
+            }
+        });
+    }
 }
 const dbmodel = new model();
 exports.default = dbmodel;

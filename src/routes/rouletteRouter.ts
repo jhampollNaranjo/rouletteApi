@@ -8,6 +8,7 @@ class rouletteRouter {
         this.routes();
     }
     public getRulette(req:Request,res:Response) { 
+        model.getRulette(req,res);
     }
     public createRulette(req:Request,res:Response){
         model.CreateRulette(req,res);
@@ -26,6 +27,7 @@ class rouletteRouter {
         this.router.put('/opening/:idRoulete', this.OpeningRulette);      
         this.router.post('/bet/:idRoulete', this.OpeningBet);
         this.router.get('/closebet/:id', this.closebet);
+        this.router.get('/', this.getRulette);
     }
 }
 const rulette = new rouletteRouter();
