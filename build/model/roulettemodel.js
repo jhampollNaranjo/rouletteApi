@@ -27,6 +27,18 @@ class model {
             }
         });
     }
+    OpeningRulette(request, response) {
+        const id = request.params.id;
+        const opening = 1;
+        this.dbCon.query('UPDATE roulette SET ? WHERE id = ?', [{ "available": opening }, id], (error, result) => {
+            if (!error) {
+                response.status(201).json(`successful operation`);
+            }
+            else {
+                response.status(500).json({ status: error.stack });
+            }
+        });
+    }
 }
 const dbmodel = new model();
 exports.default = dbmodel;

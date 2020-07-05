@@ -16,6 +16,7 @@ class rouletteRouter {
         roulettemodel_1.default.CreateRulette(req, res);
     }
     OpeningRulette(req, res) {
+        roulettemodel_1.default.OpeningRulette(req, res);
     }
     OpeningBet(req, res) {
     }
@@ -23,6 +24,7 @@ class rouletteRouter {
     }
     routes() {
         this.router.post('/add', this.createRulette);
+        this.router.put('/opening/:id', this.OpeningRulette);
     }
 }
 const rulette = new rouletteRouter();
