@@ -28,11 +28,28 @@ class model {
         });
     }
     OpeningRulette(request, response) {
-        const id = request.params.id;
+        const id = request.params.idRoulete;
         const opening = 1;
         this.dbCon.query('UPDATE roulette SET ? WHERE id = ?', [{ "available": opening }, id], (error, result) => {
             if (!error) {
                 response.status(201).json(`successful operation`);
+            }
+            else {
+                response.status(500).json({ status: error.stack });
+            }
+        });
+    }
+    OpeningBet(request, response) {
+        const data = {
+            "idRoulette": parseInt(request.params.idRoulete),
+            "idUser": request.headers['iduser'],
+            "amount": request.body.amount,
+            "num": request.body.num,
+            "color": request.body.color
+        };
+        this.dbCon.query('INSERT INTO bet SET ?', data, (error, result) => {
+            if (!error) {
+                response.status(201).json(request.body.idRoulete);
             }
             else {
                 response.status(500).json({ status: error.stack });
