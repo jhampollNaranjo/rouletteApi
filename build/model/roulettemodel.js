@@ -56,6 +56,17 @@ class model {
             }
         });
     }
+    closebet(request, response) {
+        const idRoulette = parseInt(request.params.id);
+        this.dbCon.query('SELECT * FROM roulette as r INNER JOIN bet as b ON b.idRoulette=r.id WHERE b.idRoulette=?', idRoulette, (error, result) => {
+            if (!error) {
+                response.status(201).json(result);
+            }
+            else {
+                response.status(500).json({ status: error.stack });
+            }
+        });
+    }
 }
 const dbmodel = new model();
 exports.default = dbmodel;
