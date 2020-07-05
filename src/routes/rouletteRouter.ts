@@ -1,36 +1,37 @@
 import { Router, Request, Response } from 'express';
-
-
+import model from '../model/roulettemodel';
 
 class rouletteRouter {
-    router: Router;
+    public router: Router;
+
     constructor() {
         this.router = Router();
+        this.routes();
     }
 
-    getRulette(req:Request,res:Response) {
+    public getRulette(req:Request,res:Response) {
+ 
     }
-    createRulette(req:Request,res:Response){
-      
+    public createRulette(req:Request,res:Response){
+        model.CreateRulette(req,res);
     }
-    OpeningRulette(req:Request,res:Response){
-     
-
-    }
-    OpeningBet(req:Request,res:Response){
-    
-
-    }
-    closebet(req:Request,res:Response){
-   
-    }
+    public OpeningRulette(req:Request,res:Response){
 
 
-    routes() {
-     
+    }
+    public OpeningBet(req:Request,res:Response){
+
+
+    }
+    public closebet(req:Request,res:Response){
+
+    }
+    public routes() {
+        this.router.post('/add', this.createRulette);
+           
     }
 }
 
-const ruleteoutes = new rouletteRouter();
+const rulette = new rouletteRouter();
 
-export default ruleteoutes.router;
+export default rulette.router;

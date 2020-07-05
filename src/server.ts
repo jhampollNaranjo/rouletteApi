@@ -2,6 +2,7 @@ import express from 'express';
 import morgan from 'morgan';
 import helmet from 'helmet';
 import cors from 'cors';
+import rouletteRouters from './routes/rouletteRouter';
 
 class Server {
     public app: express.Application;
@@ -20,7 +21,8 @@ class Server {
         this.app.use(cors());
     }
     public routes(): void {
-        
+        const router: express.Router = express.Router();
+        this.app.use('/roulette',rouletteRouters);
     }
     public start(): void {
         this.app.listen(this.app.get('port'), () => {
