@@ -14,7 +14,7 @@ class model {
         };
         return mysql.createPool(config);
     }
-    CreateRulette(request:Request, response:Response) {
+    public CreateRulette(request:Request, response:Response) {
         this.dbCon.query('INSERT INTO roulette SET ?', request.body, (error, result) => {
             if (!error) {
                 response.status(201).json(request.body.id);
@@ -23,7 +23,7 @@ class model {
             }
         })
     }
-    OpeningRulette(request:Request, response:Response) {
+    public OpeningRulette(request:Request, response:Response) {
         const id = request.params.idRoulete;
         const opening = 1;
         this.dbCon.query('UPDATE roulette SET ? WHERE id = ?', [{ "available": opening }, id], (error, result) => {
@@ -34,7 +34,7 @@ class model {
             }
         })
     }
-    OpeningBet(request:Request, response:Response) {
+    public OpeningBet(request:Request, response:Response) {
         
         const data = {
             "idRoulette": parseInt(request.params.idRoulete),
@@ -46,6 +46,16 @@ class model {
         this.dbCon.query('INSERT INTO bet SET ?', data, (error, result) => {
             if (!error) {
                 response.status(201).json(request.body.idRoulete);
+            } else {
+                response.status(500).json({ status: error.stack });
+            }
+        })
+    }
+    public closebet(request:Request, response:Response){
+        const idRoulette = parseInt(request.params.id);
+        this.dbCon.query('SELECT * FROM roulette as r INNER JOIN bet as b ON b.idRoulette=r.id WHERE b.idRoulette=?', idRoulette, (error, result) => {
+            if (!error) {
+                response.status(201).json(result);
             } else {
                 response.status(500).json({ status: error.stack });
             }

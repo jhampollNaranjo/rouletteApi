@@ -19,11 +19,13 @@ class rouletteRouter {
         model.OpeningBet(req,res);
     }
     public closebet(req:Request,res:Response){
+        model.closebet(req,res);
     }
     public routes() {
         this.router.post('/add', this.createRulette);
         this.router.put('/opening/:idRoulete', this.OpeningRulette);      
         this.router.post('/bet/:idRoulete', this.OpeningBet);
+        this.router.get('/closebet/:id', this.closebet);
     }
 }
 const rulette = new rouletteRouter();
